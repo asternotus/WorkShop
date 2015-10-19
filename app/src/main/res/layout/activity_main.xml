@@ -1,0 +1,91 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/LayoutStyle"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_background"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_main"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_welcome"
+        android:text="@string/welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btn_enter"
+        android:text="@string/enter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/view_big_margin"
+        android:layout_below="@+id/tv_welcome"
+        android:layout_alignRight="@+id/tv_welcome"
+        android:layout_alignEnd="@+id/tv_welcome"
+        android:layout_alignLeft="@+id/tv_welcome"
+        android:layout_alignStart="@+id/tv_welcome" />
+
+    <Button
+        android:id="@+id/btn_about"
+        android:text="@string/about"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/view_mini_margin"
+        android:layout_below="@+id/btn_enter"
+        android:layout_alignRight="@+id/btn_enter"
+        android:layout_alignEnd="@+id/btn_enter"
+        android:layout_alignLeft="@+id/btn_enter"
+        android:layout_alignStart="@+id/btn_enter" />
+
+    <Button
+        android:id="@+id/btn_exit"
+        android:text="@string/exit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/view_mini_margin"
+        android:layout_below="@+id/btn_about"
+        android:layout_alignRight="@+id/btn_about"
+        android:layout_alignEnd="@+id/btn_about"
+        android:layout_alignLeft="@+id/btn_about"
+        android:layout_alignStart="@+id/btn_about" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_login"
+        android:gravity="center"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_inputData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/inputData" />
+
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_name"
+            android:layout_marginTop="@dimen/view_big_margin"
+ />
+
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/et_name"
+            android:hint="@string/hint_password"
+            android:layout_marginTop="@dimen/view_mini_margin"
+ />
+
+    </RelativeLayout>
+
+</RelativeLayout>
