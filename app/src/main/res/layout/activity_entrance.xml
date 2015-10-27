@@ -1,0 +1,65 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/LayoutStyle"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@color/layout_background"
+    android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/entrance_tv_inputData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/inputData" />
+
+        <EditText
+            android:id="@+id/entrance_et_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_name"
+            android:layout_marginTop="@dimen/view_big_margin"
+            />
+
+        <EditText
+            android:id="@+id/entrance_et_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/entrance_et_name"
+            android:inputType="textPassword"
+            android:hint="@string/hint_password"
+            android:layout_marginTop="@dimen/view_mini_margin"
+            />
+
+        <LinearLayout
+            android:id="@+id/entrance_ll"
+            android:orientation="horizontal"
+            android:layout_below="@+id/entrance_et_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/entrance_btn_enter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/entrance_et_name"
+                android:text="@string/enter"
+                android:layout_marginTop="@dimen/view_mini_margin"
+                android:layout_weight="1"
+                />
+
+            <Button
+                android:id="@+id/entrance_btn_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/entrance_et_name"
+                android:text="@string/register"
+                android:layout_marginTop="@dimen/view_mini_margin"
+                android:layout_weight="1"
+                />
+        </LinearLayout>
+
+
+</RelativeLayout>

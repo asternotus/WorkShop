@@ -16,5 +16,8 @@
     <string name="creator">Creators</string>
     <string name="copyright">Keep Solid Production</string>
 
+    <string name="register">REGISTER</string>
+
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_profile">ProfileActivity</string>
 </resources>
