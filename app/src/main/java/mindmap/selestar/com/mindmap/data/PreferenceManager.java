@@ -1,4 +1,4 @@
-package mindmap.selestar.com.mindmap.controllers;
+package mindmap.selestar.com.mindmap.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;

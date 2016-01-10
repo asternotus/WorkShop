@@ -1,6 +1,7 @@
-package mindmap.selestar.com.mindmap.activities;
+package mindmap.selestar.com.mindmap.fragments;
 
 import android.app.Fragment;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
@@ -9,14 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import mindmap.selestar.com.mindmap.Constants;
 import mindmap.selestar.com.mindmap.R;
-import mindmap.selestar.com.mindmap.background.ImageTask;
 import mindmap.selestar.com.mindmap.controllers.FragmentController;
-import mindmap.selestar.com.mindmap.controllers.PreferenceManager;
+import mindmap.selestar.com.mindmap.data.PreferenceManager;
 
 /**
  * Created by ASTER-NOTUS on 26.10.2015.
@@ -26,31 +25,23 @@ public class EntranceFragment extends Fragment
     private Button entrance_btn_enter, entrance_btn_register;
     private EditText entrance_et_name, entrance_et_password;
     private TextInputLayout entrance_til_name, entrance_til_password;
-    private ImageView iv_blackbrain, iv_whitebrain;
-
-    private ImageTask imageTask;
-
-    private MapListFragment mapListFragment;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.activity_entrance, null);
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        mapListFragment = new MapListFragment();
-
-        iv_blackbrain = (ImageView) v.findViewById(R.id.iv_blackbrain);
-        iv_whitebrain = (ImageView) v.findViewById(R.id.iv_whitebrain);
-
-        imageTask = new ImageTask(getActivity(), iv_blackbrain, iv_whitebrain);
-        imageTask.execute();
+        View v = inflater.inflate(R.layout.entrance_fragment_layout, null);
 
         entrance_til_name = (TextInputLayout) v.findViewById(R.id.entrance_til_name);
         entrance_til_password = (TextInputLayout) v.findViewById(R.id.entrance_til_password);
 
         entrance_et_name = (EditText) v.findViewById(R.id.entrance_et_name);
         entrance_et_password = (EditText) v.findViewById(R.id.entrance_et_password);
+
+        entrance_et_name.setText("");
+        entrance_et_password.setText("");
 
         entrance_til_name.setHint(getString(R.string.hint_name));
         entrance_til_password.setHint(getString(R.string.hint_password));
@@ -67,7 +58,7 @@ public class EntranceFragment extends Fragment
                 if(entrance_et_name.getText().toString().equals(name)
                         && entrance_et_password.getText().toString().equals(password))
                 {
-                    FragmentController.getInstance().replace(R.id.main_fl_container, EntranceFragment.this, mapListFragment, true);
+                    FragmentController.getInstance().replace(R.id.main_fl_container, EntranceFragment.this, new MapListFragment(), true);
                 }
                 else
                 {
@@ -96,8 +87,4 @@ public class EntranceFragment extends Fragment
 
         return v;
     }
-
-
-
-
 }

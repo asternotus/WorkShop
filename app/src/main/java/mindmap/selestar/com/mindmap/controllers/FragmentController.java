@@ -58,7 +58,6 @@ public class FragmentController
 
     public void replace(int container, Fragment fragment)
     {
-
         fTrans = activity.getFragmentManager().beginTransaction();
         fTrans.replace(container, fragment);
         fTrans.commit();
@@ -70,6 +69,4 @@ public class FragmentController
         fTrans.remove(fragment);
         fTrans.commit();
     }
-
-
 }

@@ -50,11 +50,11 @@
 
         <LinearLayout
             android:id="@+id/entrance_ll"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_below="@+id/entrance_til_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="2">
+            android:layout_marginTop="@dimen/view_big_margin">
 
             <Button
                 android:id="@+id/entrance_btn_enter"
@@ -62,8 +62,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/entrance_et_name"
                 android:text="@string/enter"
-                android:layout_marginTop="@dimen/view_mini_margin"
-                android:layout_weight="1"
                 />
 
             <Button
@@ -72,22 +70,10 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/entrance_et_name"
                 android:text="@string/register"
-                android:layout_marginTop="@dimen/view_mini_margin"
-                android:layout_weight="1"
+                android:layout_marginTop="@dimen/view_middle_margin"
                 />
+
         </LinearLayout>
     </RelativeLayout>
-
-    <ImageView
-        android:id="@+id/iv_whitebrain"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/whitebrain"/>
-
-    <ImageView
-        android:id="@+id/iv_blackbrain"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/blackbrain"/>
 
 </RelativeLayout>

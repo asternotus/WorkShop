@@ -29,6 +29,7 @@
     <string name="name_and_password_saved">Your name and password were saved!</string>
 
     <string name="add_new_map">ADD NEW MAP</string>
+    <string name="add_new_group">ADD NEW GROUP</string>
 
     <string name="submit">SUBMIT</string>
     <string name="cancel">CANCEL</string>
@@ -37,6 +38,11 @@
 
     <string name="recycler_name">NAME:</string>
     <string name="recycler_binds">BINDS:</string>
+
+    <string name="new_map_template">NEW MIND MAP</string>
+    <string name="new_group_template">NEW GROUP</string>
+
+    <string name="group_all">ALL</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_profile">ProfileActivity</string>
