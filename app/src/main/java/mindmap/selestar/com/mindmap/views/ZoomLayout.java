@@ -1,4 +1,4 @@
-package mindmap.selestar.com.mindmap.controllers;
+package mindmap.selestar.com.mindmap.views;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
