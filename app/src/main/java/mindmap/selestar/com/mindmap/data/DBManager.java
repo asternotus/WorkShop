@@ -58,6 +58,24 @@ public class DBManager
         db.insert(Constants.TABLE_MINDMAP, null, cv);
     }
 
+    public void updateMap(MindMap mindMapElement)
+    {
+        cv = new ContentValues();
+        cv.put(Constants.ID_MINDMAP_COLUMN, mindMapElement.id);
+        cv.put(Constants.NAME_MINDMAP_COLUMN, mindMapElement.name);
+        cv.put(Constants.DESCRIPTION_MINDMAP_COLUMN, mindMapElement.description);
+
+        db.update(Constants.TABLE_MINDMAP, cv, Constants.ID_MINDMAP_COLUMN + " = ?",
+                new String[]{mindMapElement.id});
+    }
+
+    public void deleteMap(MindMap mindMapElement)
+    {
+
+        db.delete(Constants.TABLE_MINDMAP, Constants.ID_MINDMAP_COLUMN + " = ?",
+                new String[]{mindMapElement.id});
+    }
+
     public void addIdeaView(IdeaView ideaView, String mapID)
     {
         ArrayList<IdeaView> ideaViews = DBManager.getInstance().getIdeas(context, mapID);

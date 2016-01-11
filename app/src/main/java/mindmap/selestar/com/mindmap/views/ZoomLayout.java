@@ -16,11 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
 public class ZoomLayout extends FrameLayout implements
-		ScaleGestureDetector.OnScaleGestureListener {
-
-	/*public interface OnDragBorderListener {
-		void onDragBorder();
-	}*/
+	ScaleGestureDetector.OnScaleGestureListener {
 	
 	public interface OnScaleChangedListener {
 		public void onScaleChanged(float scale);
@@ -217,13 +213,13 @@ public class ZoomLayout extends FrameLayout implements
 		Log.i(TAG, "onScaleBegin");
 		mode = Mode.ZOOM;
 		prevScale = scale;
-		
+
 		float newX = (-getXPosition() + scaleDetector.getFocusX() * getScaleX()) / child().getScaleX() / getScaleX();
 		float newY = (-getYPosition() + scaleDetector.getFocusY() * getScaleY()) / child().getScaleY() / getScaleY();
-		
+
 		child().setTranslationX(child().getTranslationX() + (child().getPivotX() - newX) * (1 - child().getScaleX()));
 		child().setTranslationY(child().getTranslationY() + (child().getPivotY() - newY) * (1 - child().getScaleY()));
-	    
+
 		child().setPivotX(newX);
 		child().setPivotY(newY);
 
@@ -232,10 +228,11 @@ public class ZoomLayout extends FrameLayout implements
 
 	@Override
 	public boolean onScale(ScaleGestureDetector scaleDetector) {
+
 		float scaleFactor = scaleDetector.getScaleFactor();
 		if (lastScaleFactor > 1 && scaleFactor < 1) scaleFactor = 1f;
 		if (lastScaleFactor < 1 && scaleFactor > 1) scaleFactor = 1f;
-		
+
 		Log.i(TAG, "onScale " + scaleFactor);
 		if (lastScaleFactor == 0
 				|| (Math.signum(scaleFactor) == Math.signum(lastScaleFactor))) {
@@ -245,20 +242,22 @@ public class ZoomLayout extends FrameLayout implements
 		} else {
 			lastScaleFactor = 0;
 		}
-		
+
 		return true;
 	}
 
 	@Override
 	public void onScaleEnd(ScaleGestureDetector scaleDetector) {
+
 		Log.i(TAG, "onScaleEnd");
 		mode = Mode.NONE;
 		scale = Math.min(scale, MAX_ZOOM);
 		applyScaleAndTranslation(0, 0);
-		
+
 		if (mOnScaleChangedListener != null && prevScale != scale) {
 			mOnScaleChangedListener.onScaleChanged(scale);
 		}
+
 	}
 	
 	public float getRealWidth() {

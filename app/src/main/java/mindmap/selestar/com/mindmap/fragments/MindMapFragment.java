@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -60,6 +61,8 @@ public class MindMapFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         Bundle bundle = this.getArguments();
         int mapPosition = bundle.getInt("mapPosition", 0);
@@ -180,8 +183,8 @@ public class MindMapFragment extends Fragment
         currentIdea.ideas.add(childIdea);
         boardView.addView(childIdea);
 
-        childIdea.setX(0);
-        childIdea.setY(0);
+        childIdea.setX(currentIdea.getX() - currentIdea.getWidth());
+        childIdea.setY(currentIdea.getY() - currentIdea.getHeight());
 
         childIdea.setOnTouchListener(onTouchListener);
     }

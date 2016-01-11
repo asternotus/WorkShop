@@ -43,9 +43,18 @@ public class MapListFragment extends Fragment
     private EditText dialog_et_description;
     private TextInputLayout dialog_til_description;
 
+    // edit dialog views
+    private Button dialog_ied_btn_submit;
+    private Button dialog_ied_btn_cancel;
+    private Button dialog_ied_btn_delete;
+    private EditText dialog_ied_et_name;
+    private TextInputLayout dialog_ied_til_name;
+    private EditText dialog_ied_et_description;
+    private TextInputLayout dialog_ied_til_description;
+
     public MapListAdapter adapter;
 
-    private AlertDialog addMapDialog;
+    private AlertDialog addMapDialog, addEditMapDialog;
 
     @Nullable
     @Override
@@ -65,7 +74,7 @@ public class MapListFragment extends Fragment
 
         mapList = DBManager.getInstance().getMaps();
 
-        adapter = new MapListAdapter(mapList, getActivity());
+        adapter = new MapListAdapter(mapList, this, getActivity());
         maps_rv_maplist.setAdapter(adapter);
 
         maps_btn_addnewmap.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +91,7 @@ public class MapListFragment extends Fragment
     {
         addMapDialog = new AlertDialog.Builder(getActivity()).create();
 
-        View view = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.dialog_new_element_layout, null);
+        View view = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.dialog_new_idea_layout, null);
 
         addMapDialog.setView(view);
 
@@ -110,13 +119,71 @@ public class MapListFragment extends Fragment
 
         dialog_btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 addMapDialog.dismiss();
             }
         });
 
         addMapDialog.show();
+    }
+
+    public void mapEditDialogBuilding(String name, String description, final int position)
+    {
+        addEditMapDialog = new AlertDialog.Builder(getActivity()).create();
+
+        View view = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.dialog_item_edit_layout, null);
+
+        addEditMapDialog.setView(view);
+
+        dialog_ied_btn_submit = (Button) view.findViewById(R.id.dialog_ied_btn_submit);
+        dialog_ied_btn_cancel = (Button) view.findViewById(R.id.dialog_ied_btn_cancel);
+        dialog_ied_btn_delete = (Button) view.findViewById(R.id.dialog_ied_btn_delete);
+
+        dialog_ied_et_name = (EditText) view.findViewById(R.id.dialog_ied_et_name);
+        dialog_ied_til_name = (TextInputLayout) view.findViewById(R.id.dialog_ied_til_name);
+        dialog_ied_til_name.setHint(getString(R.string.name));
+
+        dialog_ied_et_name.setText(name);
+
+        dialog_ied_et_description = (EditText) view.findViewById(R.id.dialog_ied_et_decription);
+        dialog_ied_til_description = (TextInputLayout) view.findViewById(R.id.dialog_ied_til_decription);
+        dialog_ied_til_description.setHint(getString(R.string.hint_description));
+
+        dialog_ied_et_description.setText(description);
+
+        dialog_ied_btn_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mapList.get(position).name = dialog_ied_et_name.getText().toString();
+                mapList.get(position).description = dialog_ied_et_description.getText().toString();
+                adapter.notifyDataSetChanged();
+                DBManager.getInstance().updateMap(mapList.get(position));
+                addEditMapDialog.dismiss();
+            }
+        });
+
+        dialog_ied_btn_cancel.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                addEditMapDialog.dismiss();
+            }
+        });
+
+        dialog_ied_btn_delete.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                DBManager.getInstance().deleteMap(mapList.get(position));
+                mapList.remove(position);
+                adapter.notifyDataSetChanged();
+                addEditMapDialog.dismiss();
+            }
+        });
+
+        addEditMapDialog.show();
     }
 }
 

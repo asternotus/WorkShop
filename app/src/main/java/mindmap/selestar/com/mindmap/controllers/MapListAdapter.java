@@ -26,11 +26,13 @@ public class MapListAdapter extends RecyclerView.Adapter<MapListAdapter.MapViewH
     private List<MindMap> mindMapElements;
     private Context context;
     private MapViewHolder mvh;
+    private MapListFragment mapListFragment;
     private MindMapFragment mindMapFragment;
 
-    public MapListAdapter(List<MindMap> mindMapElements, Context context){
+    public MapListAdapter(List<MindMap> mindMapElements, MapListFragment mapListFragment, Context context){
         this.mindMapElements = mindMapElements;
         this.context = context;
+        this.mapListFragment = mapListFragment;
         this.mindMapFragment = new MindMapFragment();
     }
 
@@ -50,17 +52,25 @@ public class MapListAdapter extends RecyclerView.Adapter<MapListAdapter.MapViewH
         mapViewHolder.item_iv_img.setImageResource(R.drawable.brain_logo);
         mapViewHolder.id = mindMapElements.get(i).id;
 
-        mapViewHolder.setClickListener(new ItemClickListener()
-        {
+        mapViewHolder.setClickListener(new ItemClickListener() {
             @Override
-            public void onClick(View view, int position, boolean isLongClick)
-            {
-                Bundle bundle = new Bundle();
-                bundle.putInt("mapPosition", position);
-                mindMapFragment.setArguments(bundle);
-                FragmentController.getInstance().replace(R.id.main_fl_container, new MapListFragment(), mindMapFragment, true);
+            public void onClick(View view, int position, boolean isLongClick) {
+                if (isLongClick)
+                {
+                    mapListFragment.mapEditDialogBuilding(mindMapElements.get(position).name, mindMapElements.get(position).description, position);
+                    return;
+                }
+                else
+                {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("mapPosition", position);
+                    mindMapFragment.setArguments(bundle);
+                    FragmentController.getInstance().replace(R.id.main_fl_container, new MapListFragment(), mindMapFragment, true);
+                }
             }
+
         });
+
     }
 
     @Override
