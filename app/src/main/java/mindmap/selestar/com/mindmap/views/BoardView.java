@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.util.Log;
 import android.view.Display;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -24,8 +25,6 @@ public class BoardView extends RelativeLayout
     private Point size;
 
     private Paint paint;
-
-    private MindMapFragment mindMapFragment;
 
     private MindMap mindMap;
 
@@ -49,8 +48,6 @@ public class BoardView extends RelativeLayout
         size = new Point();
         display.getSize(size);
 
-        rootIdea.setText(mindMap.name);
-
         addView(rootIdea);
 
         setWillNotDraw(false);
@@ -64,8 +61,12 @@ public class BoardView extends RelativeLayout
         paint.setColor(Constants.ACCENT_COLOR);
         paint.setStrokeWidth(10);
 
-        rootIdea.setHeight(300);
-        rootIdea.setWidth(300);
+        rootIdea.ideaWidth = size.x / Constants.MAIN_IDEA_SIZE;
+        rootIdea.ideaHeight = size.y / Constants.MAIN_IDEA_SIZE;
+
+        Log.i(Constants.LOG_TAG, rootIdea.getTextScaleX()+"");
+
+        rootIdea.setText(mindMap.name);
 
         bypassIdeas(canvas, rootIdea);
     }
@@ -88,7 +89,7 @@ public class BoardView extends RelativeLayout
     {
         for (int i = 0; i < ideaView.ideas.size(); i++)
         {
-            DBManager.getInstance().addIdeaView(ideaView.ideas.get(i), mindMap.id);
+            DBManager.getInstance().addIdeaView(ideaView.ideas.get(i), mindMap.id, size);
             saveIdeasInDB(ideaView.ideas.get(i));
         }
     }

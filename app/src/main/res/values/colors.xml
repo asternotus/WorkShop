@@ -2,4 +2,5 @@
 <resources>
     <color name="layout_background">#B2DFDB</color>
     <color name="accent_color">#00BCD4</color>
+    <color name="main_idea_color">#C2185B</color>
 </resources>

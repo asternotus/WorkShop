@@ -27,6 +27,7 @@ import mindmap.selestar.com.mindmap.data.DBManager;
 import mindmap.selestar.com.mindmap.models.MindMap;
 import mindmap.selestar.com.mindmap.views.BoardView;
 import mindmap.selestar.com.mindmap.views.IdeaView;
+import mindmap.selestar.com.mindmap.views.ZoomLayout;
 
 /**
  * Created by ASTER-NOTUS on 13.12.2015.
@@ -35,7 +36,7 @@ public class MindMapFragment extends Fragment
 {
     private BoardView boardView;
     private Point size;
-    private ViewGroup viewGroup;
+    private ZoomLayout mind_map_zoom_layout;
 
     private MindMap mindMap;
 
@@ -60,16 +61,24 @@ public class MindMapFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        View v = inflater.inflate(R.layout.mind_map_fragment_layout, null);
+
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        size = new Point();
+        display.getSize(size);
+
         Bundle bundle = this.getArguments();
         int mapPosition = bundle.getInt("mapPosition", 0);
 
+        mind_map_zoom_layout = (ZoomLayout) v.findViewById(R.id.mind_map_zoom_layout);
+
         mindMap = DBManager.getInstance().getMapByPosition(mapPosition);
 
-        View v = inflater.inflate(R.layout.mind_map_fragment_layout, null);
+        //mind_map_zoom_layout.zoomOnCenter(size.x, size.y);
 
         return v;
     }
@@ -79,11 +88,7 @@ public class MindMapFragment extends Fragment
     {
         super.onViewCreated(view, savedInstanceState);
 
-        Display display = getActivity().getWindowManager().getDefaultDisplay();
-        size = new Point();
-        display.getSize(size);
-
-        ideaList = DBManager.getInstance().getIdeas(getActivity(), mindMap.id);
+        ideaList = DBManager.getInstance().getIdeas(getActivity(), mindMap.id, size);
 
         if(ideaList.size() > 0)
         {
@@ -93,7 +98,7 @@ public class MindMapFragment extends Fragment
         }
         else
         {
-            rootIdea = new IdeaView(getActivity(), UUID.randomUUID()+"", mindMap.name, null,  mindMap.id, Constants.ACCENT_COLOR);
+            rootIdea = new IdeaView(getActivity(), UUID.randomUUID()+"", mindMap.name, null,  mindMap.id, Constants.ACCENT_COLOR, 70f / Constants.MAIN_IDEA_SIZE);
             rootIdea.setX(size.x / 2);
             rootIdea.setY(size.y / 2);
         }
@@ -133,8 +138,7 @@ public class MindMapFragment extends Fragment
 
         addIdeasOnView(rootIdea);
 
-        viewGroup = (ViewGroup) view;
-        viewGroup.addView(boardView);
+        mind_map_zoom_layout.addView(boardView);
     }
 
     private void checkAllIdeas(IdeaView ideaView)
@@ -179,7 +183,9 @@ public class MindMapFragment extends Fragment
     {
         IdeaView currentIdea = (IdeaView) v;
 
-        IdeaView childIdea = new IdeaView(getActivity(), UUID.randomUUID()+"", name, currentIdea.id, mindMap.id, Constants.ACCENT_COLOR);
+        IdeaView childIdea = new IdeaView(getActivity(), UUID.randomUUID()+"", name, currentIdea.id, mindMap.id, Constants.ACCENT_COLOR, 70f / Constants.CHILD_IDEA_SIZE);
+        childIdea.ideaWidth = size.x/ Constants.CHILD_IDEA_SIZE;
+        childIdea.ideaHeight = size.y / Constants.CHILD_IDEA_SIZE;
         currentIdea.ideas.add(childIdea);
         boardView.addView(childIdea);
 
@@ -226,7 +232,7 @@ public class MindMapFragment extends Fragment
     public void onStop()
     {
         super.onStop();
-        DBManager.getInstance().addIdeaView(boardView.rootIdea, mindMap.id);
+        DBManager.getInstance().addIdeaView(boardView.rootIdea, mindMap.id, size);
         boardView.saveIdeasInDB(boardView.rootIdea);
     }
 }

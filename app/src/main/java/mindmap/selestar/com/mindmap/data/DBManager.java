@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Point;
 
 import java.util.ArrayList;
 
@@ -76,9 +77,9 @@ public class DBManager
                 new String[]{mindMapElement.id});
     }
 
-    public void addIdeaView(IdeaView ideaView, String mapID)
+    public void addIdeaView(IdeaView ideaView, String mapID, Point size)
     {
-        ArrayList<IdeaView> ideaViews = DBManager.getInstance().getIdeas(context, mapID);
+        ArrayList<IdeaView> ideaViews = DBManager.getInstance().getIdeas(context, mapID, size);
 
         boolean canAdd = true;
         for (int i = 0; i < ideaViews.size(); i++)
@@ -143,7 +144,7 @@ public class DBManager
         return mapList;
     }
 
-    public ArrayList<IdeaView> getIdeas(Context context, String mapID)
+    public ArrayList<IdeaView> getIdeas(Context context, String mapID, Point size)
     {
         c = db.query(Constants.TABLE_IDEA, null, null, null, null, null, null);
 
@@ -154,12 +155,24 @@ public class DBManager
             {
                 IdeaView ideaView = new IdeaView(context);
 
+                ideaView.ideaWidth = size.x / Constants.CHILD_IDEA_SIZE;
+                ideaView.ideaHeight = size.y / Constants.CHILD_IDEA_SIZE;
+
                 ideaView.id = c.getString(c.getColumnIndex(Constants.ID_IDEA_COLUMN));
                 ideaView.setText(c.getString(c.getColumnIndex(Constants.NAME_IDEA_COLUMN)));
                 ideaView.parentID = c.getString(c.getColumnIndex(Constants.PARENT_IDEA_COLUMN));
                 ideaView.mapID = c.getString(c.getColumnIndex(Constants.MAP_IDEA_COLUMN));
                 ideaView.setX(c.getFloat(c.getColumnIndex(Constants.X_IDEA_COLUMN)));
                 ideaView.setY(c.getFloat(c.getColumnIndex(Constants.Y_IDEA_COLUMN)));
+
+                if(c.getPosition() == 0)
+                {
+                    ideaView.setTextSize(70f / Constants.MAIN_IDEA_SIZE);
+                }
+                else
+                {
+                    ideaView.setTextSize(70f / Constants.CHILD_IDEA_SIZE);
+                }
 
                 ideaView.setColor(Constants.ACCENT_COLOR);
 

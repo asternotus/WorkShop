@@ -72,6 +72,17 @@ public class ZoomLayout extends FrameLayout implements
 		init(context);
 	}
 
+	public void zoomOnCenter(float width, float height)
+	{
+		child().setPivotX(width/2);
+		child().setPivotY(height/2);
+
+		scale = scale + 1.5f;
+
+		child().setScaleX(scale);
+		child().setScaleY(scale);
+	}
+
 	public void setOnLongClickListener(OnLongClickListener l) {
 		mOnLongClickListener = l;
 	}

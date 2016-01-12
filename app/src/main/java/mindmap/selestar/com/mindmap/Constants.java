@@ -32,6 +32,11 @@ public class Constants
     public static final String MAP_IDEA_COLUMN = "map_idea";
 
     // Colors
-    public static final int LAYOUT_BACKGROUND = ContextCompat.getColor(MainActivity.context, R.color.layout_background);
     public static final int ACCENT_COLOR = ContextCompat.getColor(MainActivity.context, R.color.accent_color);
+    public static final int MAIN_IDEA_COLOR = ContextCompat.getColor(MainActivity.context, R.color.main_idea_color);
+
+    // Size coefficients
+
+    public static final int MAIN_IDEA_SIZE = 10;
+    public static final int CHILD_IDEA_SIZE = 15;
 }
