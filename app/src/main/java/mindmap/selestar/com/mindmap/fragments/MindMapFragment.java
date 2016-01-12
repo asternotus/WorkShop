@@ -61,15 +61,11 @@ public class MindMapFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.mind_map_fragment_layout, null);
-
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        Display display = getActivity().getWindowManager().getDefaultDisplay();
-        size = new Point();
-        display.getSize(size);
+        View v = inflater.inflate(R.layout.mind_map_fragment_layout, null);
 
         Bundle bundle = this.getArguments();
         int mapPosition = bundle.getInt("mapPosition", 0);
@@ -78,8 +74,6 @@ public class MindMapFragment extends Fragment
 
         mindMap = DBManager.getInstance().getMapByPosition(mapPosition);
 
-        //mind_map_zoom_layout.zoomOnCenter(size.x, size.y);
-
         return v;
     }
 
@@ -87,6 +81,10 @@ public class MindMapFragment extends Fragment
     public void onViewCreated(View view, Bundle savedInstanceState)
     {
         super.onViewCreated(view, savedInstanceState);
+
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        size = new Point();
+        display.getSize(size);
 
         ideaList = DBManager.getInstance().getIdeas(getActivity(), mindMap.id, size);
 
@@ -184,8 +182,6 @@ public class MindMapFragment extends Fragment
         IdeaView currentIdea = (IdeaView) v;
 
         IdeaView childIdea = new IdeaView(getActivity(), UUID.randomUUID()+"", name, currentIdea.id, mindMap.id, Constants.ACCENT_COLOR, 70f / Constants.CHILD_IDEA_SIZE);
-        childIdea.ideaWidth = size.x/ Constants.CHILD_IDEA_SIZE;
-        childIdea.ideaHeight = size.y / Constants.CHILD_IDEA_SIZE;
         currentIdea.ideas.add(childIdea);
         boardView.addView(childIdea);
 

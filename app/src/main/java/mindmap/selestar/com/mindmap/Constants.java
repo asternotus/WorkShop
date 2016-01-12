@@ -37,6 +37,6 @@ public class Constants
 
     // Size coefficients
 
-    public static final int MAIN_IDEA_SIZE = 10;
-    public static final int CHILD_IDEA_SIZE = 15;
+    public static final int MAIN_IDEA_SIZE = 7;
+    public static final int CHILD_IDEA_SIZE = 12;
 }

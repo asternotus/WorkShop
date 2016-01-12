@@ -155,11 +155,8 @@ public class DBManager
             {
                 IdeaView ideaView = new IdeaView(context);
 
-                ideaView.ideaWidth = size.x / Constants.CHILD_IDEA_SIZE;
-                ideaView.ideaHeight = size.y / Constants.CHILD_IDEA_SIZE;
-
                 ideaView.id = c.getString(c.getColumnIndex(Constants.ID_IDEA_COLUMN));
-                ideaView.setText(c.getString(c.getColumnIndex(Constants.NAME_IDEA_COLUMN)));
+
                 ideaView.parentID = c.getString(c.getColumnIndex(Constants.PARENT_IDEA_COLUMN));
                 ideaView.mapID = c.getString(c.getColumnIndex(Constants.MAP_IDEA_COLUMN));
                 ideaView.setX(c.getFloat(c.getColumnIndex(Constants.X_IDEA_COLUMN)));
@@ -174,6 +171,7 @@ public class DBManager
                     ideaView.setTextSize(70f / Constants.CHILD_IDEA_SIZE);
                 }
 
+                ideaView.setText(c.getString(c.getColumnIndex(Constants.NAME_IDEA_COLUMN)));
                 ideaView.setColor(Constants.ACCENT_COLOR);
 
                 if(ideaView.mapID.equals(mapID))

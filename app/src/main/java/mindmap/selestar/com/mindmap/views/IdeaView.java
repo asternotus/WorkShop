@@ -1,7 +1,6 @@
 package mindmap.selestar.com.mindmap.views;
 
 import android.content.Context;
-import android.view.View;
 import android.widget.Button;
 
 import java.util.ArrayList;
@@ -18,11 +17,11 @@ public class IdeaView extends Button
     public String mapID;
     public float textSize;
     public int color;
-    public int ideaWidth, ideaHeight;
 
     public IdeaView(Context context, String id, String name, String parentID, String mapID, int color, float textSize)
     {
         super(context);
+
         this.id = id;
         this.name = name;
         this.parentID = parentID;
@@ -36,11 +35,21 @@ public class IdeaView extends Button
         setTextSize(textSize);
         setPadding(16, 16, 16, 16);
         setBackgroundColor(color);
+
+        setMinHeight(5);
+        setMinimumHeight(5);
+        setMinWidth(5);
+        setMinimumWidth(5);
     }
 
     public IdeaView(Context context)
     {
         super(context);
+
+        setMinHeight(5);
+        setMinimumHeight(5);
+        setMinWidth(5);
+        setMinimumWidth(5);
 
         ideas = new ArrayList<>();
 
@@ -48,18 +57,7 @@ public class IdeaView extends Button
         setPadding(16, 16, 16, 16);
     }
 
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
-    {
-        //Get the width measurement
-        int widthSize = View.resolveSize(ideaWidth, widthMeasureSpec);
 
-        //Get the height measurement
-        int heightSize = View.resolveSize(ideaHeight, heightMeasureSpec);
-
-        //MUST call this to store the measurements
-        setMeasuredDimension(widthSize, heightSize);
-    }
 
     public void setName(String name)
     {

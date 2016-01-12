@@ -61,9 +61,6 @@ public class BoardView extends RelativeLayout
         paint.setColor(Constants.ACCENT_COLOR);
         paint.setStrokeWidth(10);
 
-        rootIdea.ideaWidth = size.x / Constants.MAIN_IDEA_SIZE;
-        rootIdea.ideaHeight = size.y / Constants.MAIN_IDEA_SIZE;
-
         Log.i(Constants.LOG_TAG, rootIdea.getTextScaleX()+"");
 
         rootIdea.setText(mindMap.name);
