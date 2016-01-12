@@ -99,6 +99,7 @@ public class MindMapFragment extends Fragment
             rootIdea = new IdeaView(getActivity(), UUID.randomUUID()+"", mindMap.name, null,  mindMap.id, Constants.ACCENT_COLOR, 70f / Constants.MAIN_IDEA_SIZE);
             rootIdea.setX(size.x / 2);
             rootIdea.setY(size.y / 2);
+            rootIdea.setBackgroundResource(R.drawable.idea_selector);
         }
 
         boardView = new BoardView(getActivity(), this, mindMap, rootIdea);
@@ -182,6 +183,7 @@ public class MindMapFragment extends Fragment
         IdeaView currentIdea = (IdeaView) v;
 
         IdeaView childIdea = new IdeaView(getActivity(), UUID.randomUUID()+"", name, currentIdea.id, mindMap.id, Constants.ACCENT_COLOR, 70f / Constants.CHILD_IDEA_SIZE);
+        childIdea.setBackgroundResource(R.drawable.idea_selector);
         currentIdea.ideas.add(childIdea);
         boardView.addView(childIdea);
 

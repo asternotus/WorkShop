@@ -9,6 +9,7 @@ import android.graphics.Point;
 import java.util.ArrayList;
 
 import mindmap.selestar.com.mindmap.Constants;
+import mindmap.selestar.com.mindmap.R;
 import mindmap.selestar.com.mindmap.models.MindMap;
 import mindmap.selestar.com.mindmap.views.IdeaView;
 
@@ -173,6 +174,8 @@ public class DBManager
 
                 ideaView.setText(c.getString(c.getColumnIndex(Constants.NAME_IDEA_COLUMN)));
                 ideaView.setColor(Constants.ACCENT_COLOR);
+
+                ideaView.setBackgroundResource(R.drawable.idea_selector);
 
                 if(ideaView.mapID.equals(mapID))
                 {
